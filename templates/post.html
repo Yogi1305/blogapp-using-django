@@ -1,0 +1,46 @@
+<style>
+  .post-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e2e8f0;
+    max-width: 700px;
+    margin: 0 auto 32px auto;
+  }
+
+  .post-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .post-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #1a202c;
+    border-bottom: 2px solid #edf2f7;
+    padding-bottom: 8px;
+  }
+
+  .post-body {
+    font-size: 1.125rem;
+    color: #4a5568;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .post-time {
+    font-size: 0.875rem;
+    color: #718096;
+    text-align: right;
+    font-style: italic;
+  }
+</style>
+
+<div class="post-card">
+  <h1 class="post-title">{{ post.title }}</h1>
+  <div class="post-body">{{ post.body|linebreaks }}</div>
+  <div class="post-time">🕒 {{ post.time|date:"F j, Y, g:i a" }}</div>
+</div>

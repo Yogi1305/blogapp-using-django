@@ -1,14 +1,158 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Post Cards</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .posts-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        }
+
+        .post-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .post-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0 0 16px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .post-body {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .post-time {
+            color: #718096;
+            font-size: 0.875rem;
+            text-align: right;
+            font-weight: 500;
+            padding-top: 12px;
+            border-top: 1px solid rgba(160, 174, 192, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            right:0;
+            bottom:0;
+        }
+
+        .post-time::before {
+            content: '🕒';
+            font-size: 1rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .posts-container {
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+            
+            .post-title {
+                font-size: 1.5rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+
+        /* Sample animation for demonstration */
+        .post-card {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .post-card:nth-child(1) { animation-delay: 0.1s; }
+        .post-card:nth-child(2) { animation-delay: 0.2s; }
+        .post-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1 style="font-size: 10rem;text-align:center;color:red">hello</h1>
-<div >
-    
-</div>
+     <h1 style="text-align:center;"> Django blog </h1>
+    <div class="posts-container">
+
+        {% for post in posts %} 
+        
+        <!-- Sample Card 1 -->
+        <div class="post-card">
+            {% comment %} <a href="{% url 'post' post.id %}" style="text-decoration:none;"> {% endcomment %}
+              <a href="post/{{post.id}}/" style="text-decoration:none;">
+                <h1 class="post-title">{{post.title}}</h1>
+            <div class="post-body">
+                {{post.body|truncatewords:10}}
+            </div>
+            <div class="post-time">{{post.time}}</div></a>
+        </div>
+        
+       
+      {% endfor %} 
+    </div>
 </body>
 </html>
+
